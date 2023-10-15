@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerBorder
   - Wall
+  - Ball
   layers:
   - Default
   - TransparentFX
