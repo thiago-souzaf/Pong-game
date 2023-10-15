@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerBorder : MonoBehaviour
 {
-    void OnCollisionEnter(Collision col)
+    public UnityEvent onTriggerEnter;
+    void OnTriggerEnter(Collider other)
     {
-        Ball ball = col.gameObject.GetComponent<Ball>();
-        if (ball != null)
+        if (other.CompareTag("Ball"))
         {
-            ball.transform.position = new Vector3 (0, 1f, 0);
+            onTriggerEnter.Invoke();
         }
     }
 }
