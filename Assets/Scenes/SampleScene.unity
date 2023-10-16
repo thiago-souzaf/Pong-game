@@ -1223,8 +1223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113c50c02d618344296d5e5e2044a230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  initialSpeed: 10
+  speed: 10
   minDirection: 0.5
+  acceleration: 0.5
   downBorder: {fileID: 440689193}
   upBorder: {fileID: 354064216}
 --- !u!1 &705507993

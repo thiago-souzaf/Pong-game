@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
+    public float initialSpeed = 10f;
     public float speed;
     public float minDirection = 0.5f;
-
+    public float acceleration;
     private Vector3 direction;
     private Rigidbody rb;
 
@@ -35,10 +36,11 @@ public class BallController : MonoBehaviour
     {
         if (stopped) return;
 
-        this.rb.MovePosition(this.rb.position + direction * speed * Time.deltaTime);
-        if(this.transform.position.z > upBorder.transform.position.z || this.transform.position.z < downBorder.transform.position.z)
+        
+        if(this.transform.position.z < upBorder.transform.position.z || this.transform.position.z > downBorder.transform.position.z)
         {
-            
+            this.rb.MovePosition(this.rb.position + speed * Time.deltaTime * direction);
+            this.speed += acceleration * Time.deltaTime;
         }
 
     }
@@ -76,6 +78,7 @@ public class BallController : MonoBehaviour
     public void Go()
     {
         ChooseDirection();
+        this.speed = this.initialSpeed;
         this.stopped = false;
     }
 }
