@@ -9,6 +9,7 @@ public enum ePlayer
 }
 public class Player : MonoBehaviour
 {
+    private GameController gameController;
     public ePlayer player;
     public float speed = 15f;
     private Rigidbody rb;
@@ -17,20 +18,25 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        gameController = FindAnyObjectByType<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (player == ePlayer.Left)
+        if (gameController.started)
         {
-            inputSpeed = Input.GetAxisRaw("PlayerLeft");
-        } else if (player == ePlayer.Right)
-        {
-            inputSpeed = Input.GetAxisRaw("PlayerRight");
+            if (player == ePlayer.Left)
+            {
+                inputSpeed = Input.GetAxisRaw("PlayerLeft");
+            }
+            else if (player == ePlayer.Right)
+            {
+                inputSpeed = Input.GetAxisRaw("PlayerRight");
+            }
+            if (transform.position.z < 5f && transform.position.z > -5f)
+                rb.velocity = Vector3.forward * inputSpeed * speed;
         }
-        if (transform.position.z < 5f && transform.position.z > -5f)
-        rb.velocity = Vector3.forward * inputSpeed * speed;
+        
     }
 }

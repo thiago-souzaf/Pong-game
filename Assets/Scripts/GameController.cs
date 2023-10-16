@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     private int scoreLeft = 0;
     private int scoreRight = 0;
 
-    private bool started = false;
+    public bool started = false;
 
     private BallController ballController;
 
@@ -20,20 +20,26 @@ public class GameController : MonoBehaviour
 
     public Starter starter;
 
+    public TextMeshProUGUI instructionText;
+
 
     // Start is called before the first frame update
     void Start()
     {
         this.ballController = ball.GetComponent<BallController>();
         this.startingPosition = this.ball.transform.position;
+        instructionText.enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (this.started) return;
+
+        
         if (Input.GetKey(KeyCode.Space))
         {
+            instructionText.enabled = false;
             this.started = true;
             this.starter.StartCountdown();
         }
