@@ -27,12 +27,19 @@ public class BallController : MonoBehaviour
     public GameObject downBorder;
     public GameObject upBorder;
 
+    private Vector3 originalSize;
+    public float increaseFactor;
+    public float increaseSizeTime;
+    private bool isScaling = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         gameController = FindObjectOfType<GameController>();
         trail = GetComponent<TrailRenderer>();
+        originalSize = transform.localScale;
     }
 
     // Update is called once per frame
@@ -56,6 +63,7 @@ public class BallController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.CompareTag("Wall"))
         {
             direction.z = -direction.z;
@@ -78,6 +86,11 @@ public class BallController : MonoBehaviour
             Debug.Log(other.ToString());
             ChangeTrailColor(other.ToString());
             
+        }
+
+        if (!isScaling)
+        {
+            StartCoroutine(ScaleUpAndDown());
         }
     }
 
@@ -123,5 +136,20 @@ public class BallController : MonoBehaviour
             trail.SetMaterials(this.materials);
         }
 
+    }
+
+    IEnumerator ScaleUpAndDown()
+    {
+        this.isScaling = false;
+
+        transform.localScale *= increaseFactor;
+
+        yield return new WaitForSeconds(increaseSizeTime);
+
+        transform.localScale = originalSize;
+
+        yield return new WaitForSeconds(increaseSizeTime);
+
+        isScaling = false;
     }
 }
