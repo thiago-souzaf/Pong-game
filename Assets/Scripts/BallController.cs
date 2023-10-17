@@ -32,6 +32,9 @@ public class BallController : MonoBehaviour
     public float increaseSizeTime;
     private bool isScaling = false;
 
+    private AudioSource audioSrc;
+    public AudioClip[] sfx;
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +43,7 @@ public class BallController : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
         trail = GetComponent<TrailRenderer>();
         originalSize = transform.localScale;
+        audioSrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -68,6 +72,7 @@ public class BallController : MonoBehaviour
         {
             direction.z = -direction.z;
             CreateSpark(0);
+            PlaySfx(0);
             
         }
 
@@ -85,7 +90,9 @@ public class BallController : MonoBehaviour
 
             Debug.Log(other.ToString());
             ChangeTrailColor(other.ToString());
-            
+
+            PlaySfx(1);
+
         }
 
         if (!isScaling)
@@ -151,5 +158,11 @@ public class BallController : MonoBehaviour
         yield return new WaitForSeconds(increaseSizeTime);
 
         isScaling = false;
+    }
+
+    public void PlaySfx(int index)
+    {
+        audioSrc.clip = sfx[index];
+        audioSrc.Play();
     }
 }

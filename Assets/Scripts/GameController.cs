@@ -55,8 +55,10 @@ public class GameController : MonoBehaviour
         Debug.Log("Gol na esquerda");
         this.scoreRight++;
         UpdateUI();
-        ResetBall();
         ballController.CreateSpark(2);
+        ballController.PlaySfx(2);
+        ResetBall();
+        
     }
 
     public void ScoreGoalRight()
@@ -65,6 +67,7 @@ public class GameController : MonoBehaviour
         this.scoreLeft++;
         UpdateUI();
         ballController.CreateSpark(2);
+        ballController.PlaySfx(2);
         ResetBall();
         
     }
