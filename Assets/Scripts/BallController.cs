@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
+    public GameObject[] vfxParticle;
     public float initialSpeed = 10f;
     public float speed;
     public float minDirection = 0.5f;
@@ -50,6 +51,8 @@ public class BallController : MonoBehaviour
         if (other.CompareTag("Wall"))
         {
             direction.z = -direction.z;
+            CreateSpark(0);
+            
         }
 
         if (other.CompareTag("Player"))
@@ -61,6 +64,8 @@ public class BallController : MonoBehaviour
             newDirection.z = Mathf.Sign(newDirection.z) * Mathf.Max(Mathf.Abs(newDirection.z), this.minDirection);
 
             direction = newDirection;
+
+            CreateSpark(1);
         }
     }
 
@@ -80,5 +85,11 @@ public class BallController : MonoBehaviour
         ChooseDirection();
         this.speed = this.initialSpeed;
         this.stopped = false;
+    }
+
+    public void CreateSpark(int index)
+    {
+        GameObject sparks = Instantiate(this.vfxParticle[index], transform.position, Quaternion.identity);
+        Destroy(sparks, 4f);
     }
 }
