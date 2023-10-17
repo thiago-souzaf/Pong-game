@@ -6,6 +6,13 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public GameObject[] vfxParticle;
+    private List<Material> materials;
+    public Material defaultMaterial;
+    public Material blueMaterial;
+    public Material redMaterial;
+
+    private TrailRenderer trail;
+
     public float initialSpeed = 10f;
     public float speed;
     public float minDirection = 0.5f;
@@ -25,6 +32,7 @@ public class BallController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         gameController = FindObjectOfType<GameController>();
+        trail = GetComponent<TrailRenderer>();
     }
 
     // Update is called once per frame
@@ -66,6 +74,10 @@ public class BallController : MonoBehaviour
             direction = newDirection;
 
             CreateSpark(1);
+
+            Debug.Log(other.ToString());
+            ChangeTrailColor(other.ToString());
+            
         }
     }
 
@@ -79,17 +91,37 @@ public class BallController : MonoBehaviour
     public void Stop()
     {
         this.stopped = true;
+        trail.emitting = false;
+        this.materials = new List<Material> { defaultMaterial };
+        trail.SetMaterials(this.materials);
+        
     }
     public void Go()
     {
         ChooseDirection();
         this.speed = this.initialSpeed;
         this.stopped = false;
+        trail.emitting = true;
+
     }
 
     public void CreateSpark(int index)
     {
         GameObject sparks = Instantiate(this.vfxParticle[index], transform.position, Quaternion.identity);
         Destroy(sparks, 4f);
+    }
+
+    private void ChangeTrailColor(string player)
+    {
+        if (player.Contains("Player_Left"))
+        {
+            this.materials = new List<Material> { blueMaterial };
+            trail.SetMaterials(this.materials);
+        } else if (player.Contains("Player_Right"))
+        {
+            this.materials = new List<Material> { redMaterial };
+            trail.SetMaterials(this.materials);
+        }
+
     }
 }
