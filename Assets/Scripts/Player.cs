@@ -14,11 +14,19 @@ public class Player : MonoBehaviour
     public float speed = 15f;
     private Rigidbody rb;
     public float inputSpeed = 0f;
+    private float timeToRestore = 4f;
+
+    private AudioSource audioSrc;
+    public AudioClip sfxPowerUp;
+
+    public Vector3 originalScale;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         gameController = FindAnyObjectByType<GameController>();
+        this.originalScale = this.transform.localScale;
+        audioSrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,5 +46,23 @@ public class Player : MonoBehaviour
                 rb.velocity = Vector3.forward * inputSpeed * speed;
         }
         
+    }
+
+    private IEnumerator RestoreSize(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        this.transform.localScale = originalScale;
+    }
+
+    public void SizePowerUp(float increaseFactor)
+    {
+        Vector3 currentScale = this.transform.localScale;
+        
+        this.transform.localScale = new Vector3(currentScale.x, currentScale.y * increaseFactor, currentScale.z);
+        audioSrc.clip = sfxPowerUp;
+        audioSrc.Play();
+
+        StartCoroutine(this.RestoreSize(timeToRestore));
     }
 }

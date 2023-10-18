@@ -20,7 +20,7 @@ public class BallController : MonoBehaviour
     private Vector3 direction;
     private Rigidbody rb;
 
-    private bool stopped = true;
+    public bool stopped = true;
 
     private GameController gameController;
 
