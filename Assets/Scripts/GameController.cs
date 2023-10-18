@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     {
         this.ballController = ball.GetComponent<BallController>();
         this.startingPosition = this.ball.transform.position;
-        instructionText.enabled = true;
+        instructionText.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
         
         if (Input.GetKey(KeyCode.Space))
         {
-            instructionText.enabled = false;
+            instructionText.gameObject.SetActive(false);
             this.started = true;
             this.starter.StartCountdown();
         }
