@@ -6,9 +6,10 @@ public class BallMovement : MonoBehaviour
 {
     private Rigidbody rb;
     private readonly float acceleration = 0.1f;
-    public Vector3 ForceDirection;
     private Vector3 velocity;
     public float speed;
+
+    private float minDirection = 0.5f;
 
     private void Start()
     {
@@ -42,6 +43,18 @@ public class BallMovement : MonoBehaviour
     {
         // Increases speed everytime it collides with something
         speed += acceleration;
+        
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Sets a normalized vector that goes from the player to the ball
+            Vector3 newDirection = (transform.position - collision.gameObject.transform.position).normalized;
+
+            newDirection.x = Mathf.Sign(newDirection.x) * Mathf.Max(Mathf.Abs(newDirection.x), this.minDirection);
+            newDirection.z = Mathf.Sign(newDirection.z) * Mathf.Max(Mathf.Abs(newDirection.z), this.minDirection);
+
+            rb.velocity = newDirection;
+        }
         SetVelocitySpeed();
     }
 
