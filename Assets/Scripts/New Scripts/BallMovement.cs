@@ -7,8 +7,8 @@ public class BallMovement : MonoBehaviour
     private Rigidbody rb;
     private readonly float acceleration = 0.1f;
     private Vector3 velocity;
-    private float initialSpeed = 10;
-    public float speed;
+    private float initialSpeed = 5f;
+    private float speed;
 
     private float minDirection = 0.5f;
 
@@ -25,9 +25,9 @@ public class BallMovement : MonoBehaviour
 
     private void ThrowBall()
     {
-        rb.AddForce(ChooseRandomDirection());
+
         speed = initialSpeed;
-        SetVelocitySpeed();
+        rb.velocity = ChooseRandomDirection() * speed;
         isMoving = true;
 
     }
@@ -37,12 +37,12 @@ public class BallMovement : MonoBehaviour
         float signX = Mathf.Sign(Random.Range(-1f, 1f));
         float signZ = Mathf.Sign(Random.Range(-1f, 1f));
         Vector3 direction = new(0.5f * signX, 0, 0.5f * signZ);
-        return direction;
+        return direction.normalized;
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isMoving)
         {
             ThrowBall();
         }
@@ -53,7 +53,7 @@ public class BallMovement : MonoBehaviour
         // Increases speed everytime it collides with something
         speed += acceleration;
         
-
+        // New direction depends on where the player hit the ball
         if (collision.gameObject.CompareTag("Player"))
         {
             // Sets a normalized vector that goes from the player to the ball
