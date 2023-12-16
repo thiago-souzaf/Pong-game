@@ -40,13 +40,14 @@ public class BallMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Increases speed everytime it collides with something
         speed += acceleration;
         SetVelocitySpeed();
-
     }
 
     private void SetVelocitySpeed()
     {
+        // Magnetude of rigidbody's velocity is defined by speed variable
         velocity = rb.velocity;
         velocity.Normalize();
         velocity *= speed;
