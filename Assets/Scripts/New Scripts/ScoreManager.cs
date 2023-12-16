@@ -17,8 +17,6 @@ public class ScoreManager : MonoBehaviour
     {
         if (side == "Left") scoreRight++;
         else if (side == "Right") scoreLeft++;
-        Debug.Log("Gol feito no lado " + side);
-
-        scoreString = scoreLeft.ToString() + ':' + scoreRight;
+        UIManager.Instance.UpdateScore(scoreLeft, scoreRight);
     }
 }
