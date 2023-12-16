@@ -65,10 +65,10 @@ public class BallController : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
 
-        if (other.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall"))
         {
             direction.z = -direction.z;
             CreateSpark(0);
@@ -76,9 +76,9 @@ public class BallController : MonoBehaviour
             
         }
 
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            Vector3 newDirection = (transform.position - other.transform.position).normalized;
+            Vector3 newDirection = (transform.position - other.gameObject.transform.position).normalized;
 
 
             newDirection.x = Mathf.Sign(newDirection.x) * Mathf.Max(Mathf.Abs(newDirection.x), this.minDirection);
@@ -88,8 +88,8 @@ public class BallController : MonoBehaviour
 
             CreateSpark(1);
 
-            Debug.Log(other.ToString());
-            ChangeTrailColor(other.ToString());
+            Debug.Log(other.gameObject.ToString());
+            ChangeTrailColor(other.gameObject.ToString());
 
             PlaySfx(1);
 
