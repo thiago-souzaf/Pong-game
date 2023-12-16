@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EPlayer
+public enum ESide
 {
     Left,
     Right
@@ -16,14 +16,14 @@ public class PlayerMovement : MonoBehaviour
     private string inputString;
     private Rigidbody rb;
 
-    [SerializeField] private EPlayer playerSide;
+    [SerializeField] private ESide playerSide;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
 
-        inputString = playerSide == EPlayer.Left ? "PlayerLeft" : "PlayerRight";
+        inputString = playerSide == ESide.Left ? "PlayerLeft" : "PlayerRight";
     }
 
     void FixedUpdate()
