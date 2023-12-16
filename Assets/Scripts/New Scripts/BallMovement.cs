@@ -7,19 +7,28 @@ public class BallMovement : MonoBehaviour
     private Rigidbody rb;
     private readonly float acceleration = 0.1f;
     private Vector3 velocity;
+    private float initialSpeed = 10;
     public float speed;
 
     private float minDirection = 0.5f;
 
+    public bool isMoving;
+
+    private Vector3 startPosition;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        isMoving = false;
+        startPosition = transform.position;
     }
 
     private void ThrowBall()
     {
         rb.AddForce(ChooseRandomDirection());
+        speed = initialSpeed;
         SetVelocitySpeed();
+        isMoving = true;
 
     }
 
@@ -65,5 +74,12 @@ public class BallMovement : MonoBehaviour
         velocity.Normalize();
         velocity *= speed;
         rb.velocity = velocity;
+    }
+
+    public void ResetBall()
+    {
+        rb.velocity = Vector3.zero;
+        isMoving = false;
+        transform.position = startPosition;
     }
 }
