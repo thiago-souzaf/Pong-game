@@ -5,8 +5,6 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     int scoreLeft, scoreRight;
-    public string scoreString;
-
     void Start()
     {
         scoreLeft = 0;

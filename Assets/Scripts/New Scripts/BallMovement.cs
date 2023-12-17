@@ -12,24 +12,25 @@ public class BallMovement : MonoBehaviour
 
     private float minDirection = 0.5f;
 
-    public bool isMoving;
+    public bool IsMoving { get; private set; }
 
     private Vector3 startPosition;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        isMoving = false;
+        IsMoving = false;
         startPosition = transform.position;
     }
 
-    private void ThrowBall()
+    public void ThrowBall()
     {
-
-        speed = initialSpeed;
-        rb.velocity = ChooseRandomDirection() * speed;
-        isMoving = true;
-
+        if(!IsMoving)
+        {
+            speed = initialSpeed;
+            rb.velocity = ChooseRandomDirection() * speed;
+            IsMoving = true;
+        }
     }
 
     private Vector3 ChooseRandomDirection()
@@ -42,10 +43,7 @@ public class BallMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isMoving)
-        {
-            ThrowBall();
-        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -79,7 +77,7 @@ public class BallMovement : MonoBehaviour
     public void ResetBall()
     {
         rb.velocity = Vector3.zero;
-        isMoving = false;
+        IsMoving = false;
         transform.position = startPosition;
     }
 }
