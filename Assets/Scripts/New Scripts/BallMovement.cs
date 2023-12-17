@@ -41,10 +41,6 @@ public class BallMovement : MonoBehaviour
         return direction.normalized;
     }
 
-    private void Update()
-    {
-
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
