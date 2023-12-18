@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallFx : MonoBehaviour
+public class BallVFX : MonoBehaviour
 {
     [SerializeField] GameObject goalExplosion;
     [SerializeField] GameObject wallHit;

@@ -10,7 +10,7 @@ public class GoalDetector : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ball")){
-            other.GetComponent<BallFx>().GoalEffect();
+            other.GetComponent<BallVFX>().GoalEffect();
             onTriggerEnter.Invoke();
         }
     }
