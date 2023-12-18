@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,7 +11,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         HasGameStarted = false;
-        UIManager.Instance.ShowInstruction(true);
+        UIManager.Instance.OnGameLoad();
 
     }
 
@@ -19,9 +20,29 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            HasGameStarted = true;
-            ballMovement.ThrowBall();
-            UIManager.Instance.ShowInstruction(false);
+            if (!HasGameStarted)
+            {
+                HasGameStarted = true;
+                UIManager.Instance.OnGameStart();
+            } else if (!ballMovement.IsMoving)
+            {
+                UIManager.Instance.StartCountdown();
+            }
+            
         }
+    }
+
+    public void StartGame()
+    {
+        ballMovement.ThrowBall();
+    }
+
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
     }
 }

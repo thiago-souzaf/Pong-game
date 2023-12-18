@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +7,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI scoreTxt;
     [SerializeField] private GameObject instructionsCard;
+    [SerializeField] private Countdown starterCountdown;
 
     private void Awake()
     {
@@ -25,8 +24,24 @@ public class UIManager : MonoBehaviour
         scoreTxt.text = scoreLeft + " x " + scoreRight;
     }
 
-    public void ShowInstruction(bool show)
+    private void ShowInstruction(bool show)
     {
         instructionsCard.SetActive(show);
+    }
+
+    public void StartCountdown()
+    {
+        starterCountdown.StartCountdown();
+    }
+
+    public void OnGameStart()
+    {
+        ShowInstruction(false);
+        StartCountdown();
+    }
+
+    public void OnGameLoad()
+    {
+        ShowInstruction(true);
     }
 }
