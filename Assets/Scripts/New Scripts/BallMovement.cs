@@ -12,7 +12,7 @@ public class BallMovement : MonoBehaviour
 
     private float minDirection = 0.5f;
 
-    public bool IsMoving { get; private set; }
+    static public bool IsMoving { get; private set; }
 
     private Vector3 startPosition;
 
@@ -41,26 +41,6 @@ public class BallMovement : MonoBehaviour
         return direction.normalized;
     }
 
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Increases speed everytime it collides with something
-        speed += acceleration;
-        
-        // New direction depends on where the player hit the ball
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // Sets a normalized vector that goes from the player to the ball
-            Vector3 newDirection = (transform.position - collision.gameObject.transform.position).normalized;
-
-            newDirection.x = Mathf.Sign(newDirection.x) * Mathf.Max(Mathf.Abs(newDirection.x), this.minDirection);
-            newDirection.z = Mathf.Sign(newDirection.z) * Mathf.Max(Mathf.Abs(newDirection.z), this.minDirection);
-
-            rb.velocity = newDirection;
-        }
-        SetVelocitySpeed();
-    }
-
     private void SetVelocitySpeed()
     {
         // Magnetude of rigidbody's velocity is defined by speed variable
@@ -70,10 +50,28 @@ public class BallMovement : MonoBehaviour
         rb.velocity = velocity;
     }
 
-    public void ResetBall()
+    public void ResetBallPosition()
     {
         rb.velocity = Vector3.zero;
         IsMoving = false;
         transform.position = startPosition;
+    }
+
+    public void AllCollisions()
+    {
+        // Increases speed everytime it collides with something
+        speed += acceleration;
+        SetVelocitySpeed();
+    }
+
+    public void CollisionWithPlayer(GameObject playerGameObject)
+    {
+        // Sets a normalized vector that goes from the player to the ball
+        Vector3 newDirection = (transform.position - playerGameObject.transform.position).normalized;
+
+        newDirection.x = Mathf.Sign(newDirection.x) * Mathf.Max(Mathf.Abs(newDirection.x), this.minDirection);
+        newDirection.z = Mathf.Sign(newDirection.z) * Mathf.Max(Mathf.Abs(newDirection.z), this.minDirection);
+
+        rb.velocity = newDirection;
     }
 }

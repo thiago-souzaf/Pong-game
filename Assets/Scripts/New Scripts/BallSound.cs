@@ -15,15 +15,18 @@ public class BallSound : MonoBehaviour
         audioSrc = GetComponent<AudioSource>();  
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    public void CollisionWithPlayer()
     {
-        if(collision.gameObject.CompareTag("Player")) audioSrc.PlayOneShot(hitPlayer);
-        else if(collision.gameObject.CompareTag("Wall")) audioSrc.PlayOneShot(hitWall);
+        audioSrc.PlayOneShot(hitPlayer);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void CollisionWithWall()
     {
-        if (other.CompareTag("Goal")) audioSrc.PlayOneShot(goal);
+        audioSrc.PlayOneShot(hitWall);
+    }
+
+    public void CollisionWithGoal()
+    {
+        audioSrc.PlayOneShot(goal);
     }
 }

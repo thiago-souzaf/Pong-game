@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private BallMovement ballMovement;
+    [SerializeField] private BallManager ballManager;
     public bool HasGameStarted { get; private set; }
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
             {
                 HasGameStarted = true;
                 UIManager.Instance.OnGameStart();
-            } else if (!ballMovement.IsMoving)
+            } else if (!BallMovement.IsMoving)
             {
                 UIManager.Instance.StartCountdown();
             }
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        ballMovement.ThrowBall();
+        ballManager.BallGo();
     }
 
     public void ExitGame()

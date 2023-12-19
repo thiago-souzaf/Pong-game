@@ -15,8 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float inputDir;
     private string inputString;
     private Rigidbody rb;
-
-    [SerializeField] private ESide playerSide;
+    public ESide playerSide;
 
     // Start is called before the first frame update
     void Start()
