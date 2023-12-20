@@ -8,7 +8,9 @@ The objective of the game is to score more points than your oppenent by bouncing
 
 ## Screenshots
 
-<!--  -->
+![screenshot](Screenshots/screenshot_3.png)
+![screenshot](Screenshots/screenshot_4.png)
+![screenshot](Screenshots/screenshot_5.png)
 
 ## How to Play
 
