@@ -19,7 +19,7 @@ The objective of the game is to score more points than your oppenent by bouncing
 3. Use the [W] and [S] keys to control the left paddle. 
 4. Use the [↑] and [↓] keys to control the right paddle.
 
-## System Requiriments
+## System Requirements
 
 - **Web Browser**: It is recommended using Google Chrome, Mozilla Firefox, or Microsoft Edge for the best experience.
 
